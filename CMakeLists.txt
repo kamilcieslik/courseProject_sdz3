@@ -10,5 +10,7 @@ set(SOURCE_FILES main.cpp
         DiscreteKnapsackProblem.h
         TimeMeasurement.cpp
         TimeMeasurement.h
+        UsefulStructuresForAlgorithms.cpp
+        UsefulStructuresForAlgorithms.h
         )
 add_executable(sdizo_3 ${SOURCE_FILES})

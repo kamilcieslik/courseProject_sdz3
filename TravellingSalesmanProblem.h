@@ -5,9 +5,30 @@
 #ifndef SDIZO_3_TRAVELLINGSALESMANPROBLEM_H
 #define SDIZO_3_TRAVELLINGSALESMANPROBLEM_H
 
+#include <iostream>
 
 class TravellingSalesmanProblem {
-
+private:
+    int amountOfCities;
+    int **arrayOfMatrixOfCities;
+public:
+    TravellingSalesmanProblem();
+    
+    ~TravellingSalesmanProblem();
+    
+    void DeleteTravellingSalesman();
+    
+    void ReadCitiesFromFile(std::string path);
+    
+    void GenerateRandomCities(int amountOfCities = 0, int maxDistanceBetweenCity = 99);
+    
+    void PrintCitiesForTheTravellingSalesman();
+    
+    void GreedyAlgorithm();
+    
+    void BruteForceAlgorithm();
+    
+    void PrintSolution();
 };
 
 
