@@ -154,23 +154,24 @@ void TravellingSalesmanProblem::GreedyAlgorithm() {
 }
 
 void TravellingSalesmanProblem::CalculateTheMostOptimalPermutation(int amountOfElements, int *permutations) {
-    if (amountOfElements == 0) {
+    if (amountOfElements == amountOfCities - 1) {
         int lengthInThisPermutation = 0;
-        for (auto i = 0; i < amountOfCities; i++) {
-            if (i < amountOfCities - 1)
-                lengthInThisPermutation += arrayOfMatrixOfCities[permutations[i]][permutations[i + 1]];
+        for (auto i = 0; i < amountOfCities - 1; i++) {
+            lengthInThisPermutation += arrayOfMatrixOfCities[permutations[i]][permutations[i + 1]];
         }
+        lengthInThisPermutation += arrayOfMatrixOfCities[permutations[amountOfCities - 1]][permutations[0]];
         if (lengthInThisPermutation < currentMinLength) {
             currentMinLength = lengthInThisPermutation;
             for (auto i = 0; i < amountOfCities; i++) {
                 optimalWay_Solution[i] = permutations[i];
             }
+            optimalWay_Solution[amountOfCities] = permutations[0];
         }
     } else {
-        for (auto i = 0; i <= amountOfElements; i++) {
-            std::swap(permutations[i], permutations[amountOfElements]);
-            CalculateTheMostOptimalPermutation(amountOfElements - 1, permutations);
-            std::swap(permutations[i], permutations[amountOfElements]);
+        for (auto i = amountOfElements; i < amountOfCities; i++) {
+            std::swap(permutations[amountOfElements], permutations[i]);
+            CalculateTheMostOptimalPermutation(amountOfElements + 1, permutations);
+            std::swap(permutations[amountOfElements], permutations[i]);
         }
     }
 }
@@ -179,20 +180,20 @@ void TravellingSalesmanProblem::BruteForceAlgorithm() {
     if (arrayOfMatrixOfCities == nullptr)
         throw std::logic_error("Brak miast do przeprowadzenia algorytmu problemu komiwojażera.");
     
-    if (optimalWay_Solution != nullptr)
-        delete[] optimalWay_Solution;
+    if (optimalWay_Solution != nullptr) {
+        delete[]optimalWay_Solution;
+    }
     
     setGreedyAlgorithm = false;
-    
-    optimalWay_Solution = new int[amountOfCities];
+    optimalWay_Solution = new int[amountOfCities + 1];
     
     int *allPossiblePermutations = new int[amountOfCities];
-    for (auto i = 0; i < amountOfCities; i++)
+    for (int i = 0; i < amountOfCities; i++) {
         allPossiblePermutations[i] = i;
+    }
     
     currentMinLength = INT_MAX;
-    
-    CalculateTheMostOptimalPermutation(amountOfCities - 1, allPossiblePermutations);
+    CalculateTheMostOptimalPermutation(0, allPossiblePermutations);
     
     delete[] allPossiblePermutations;
 }
@@ -203,12 +204,10 @@ void TravellingSalesmanProblem::PrintSolution() {
     if (setGreedyAlgorithm) {
         std::cout << "\e[1mGreedy Algorithm\e[0m" << std::endl << std::endl;
     } else {
-        std::cout << "\e[1mDynamic Algorithm\e[0m" << std::endl << std::endl;
+        std::cout << "\e[1mFull Search Algorithm\e[0m" << std::endl << std::endl;
     }
     
-    int minLength =
-            currentMinLength + arrayOfMatrixOfCities[optimalWay_Solution[amountOfCities - 1]][optimalWay_Solution[0]];
-    std::cout << "Length\t= " << minLength << std::endl;
+    std::cout << "Length\t= " << currentMinLength << std::endl;
     std::cout << "Path\t= ";
     
     for (auto i = 0; i < amountOfCities; i++) {
