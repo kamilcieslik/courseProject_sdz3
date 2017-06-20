@@ -161,7 +161,7 @@ void TravellingSalesmanProblem::GreedyAlgorithm() {
     int currentMinLength;
     
     int nextCity = 0;
-    int city=nextCity;
+    int city = nextCity;
     visitedCities[city] = true;
     
     optimalWay_Solution[0] = nextCity;

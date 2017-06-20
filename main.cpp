@@ -247,7 +247,8 @@ int main() {
             case 3:
                 menu_tests();
                 break;
-            default:break;
+            default:
+                break;
         }
         
     } while (option != 0);

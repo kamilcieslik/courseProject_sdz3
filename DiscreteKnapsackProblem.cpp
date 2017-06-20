@@ -189,7 +189,7 @@ int max(int firstValue, int secondValue) {
     if (firstValue > secondValue)
         max = firstValue;
     else
-        max =  secondValue;
+        max = secondValue;
     return max;
 }
 
