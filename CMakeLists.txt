@@ -3,6 +3,7 @@ project(sdizo_3)
 
 set(CMAKE_CXX_STANDARD 14)
 
+
 set(SOURCE_FILES main.cpp
         TravellingSalesmanProblem.cpp
         TravellingSalesmanProblem.h

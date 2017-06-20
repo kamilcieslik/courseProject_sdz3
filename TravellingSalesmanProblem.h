@@ -11,6 +11,9 @@ class TravellingSalesmanProblem {
 private:
     int amountOfCities;
     int **arrayOfMatrixOfCities;
+    int *optimalWay_Solution;
+    int currentMinLength;
+    bool setGreedyAlgorithm;
 public:
     TravellingSalesmanProblem();
     
@@ -25,6 +28,8 @@ public:
     void PrintCitiesForTheTravellingSalesman();
     
     void GreedyAlgorithm();
+    
+    void CalculateTheMostOptimalPermutation(int amountOfElements, int *permutations);
     
     void BruteForceAlgorithm();
     

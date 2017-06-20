@@ -14,7 +14,7 @@ private:
     int capacityOfKnapsack;
     int amountOfItems;
     Item *itemsForTheKnapsack;
-    ListOfPackedItems packedItems;
+    ListOfPackedItems packedItems_Solution;
     bool setGreedyAlgorithmSortByValueVersion;
     bool setGreedyAlgorithm;
 

@@ -20,7 +20,7 @@ DiscreteKnapsackProblem::~DiscreteKnapsackProblem() {
 void DiscreteKnapsackProblem::DeleteDiscreteKnapsack() {
     delete[] itemsForTheKnapsack;
     itemsForTheKnapsack = nullptr;
-    packedItems.DeletePackedItems();
+    packedItems_Solution.DeletePackedItems();
 }
 
 void DiscreteKnapsackProblem::ReadItemsFromFile(std::string path) {
@@ -142,12 +142,12 @@ void DiscreteKnapsackProblem::GreedyAlgorithmSortByValueVersion() {
     }
     int currentWeightOfItemsInTheKnapsack = 0;
     
-    packedItems.DeletePackedItems();
+    packedItems_Solution.DeletePackedItems();
     Item item;
     while (heapForItems.GetNumberOfItems() != 0) {
         item = heapForItems.PopItem();
         if (item.itemSize + currentWeightOfItemsInTheKnapsack <= capacityOfKnapsack) {
-            packedItems.AddItemAtTheEnd(item);
+            packedItems_Solution.AddItemAtTheEnd(item);
             currentWeightOfItemsInTheKnapsack += item.itemSize;
         }
     }
@@ -165,12 +165,12 @@ void DiscreteKnapsackProblem::GreedyAlgorithmSortByRatioVersion() {
     }
     int currentWeightOfItemsInTheKnapsack = 0;
     
-    packedItems.DeletePackedItems();
+    packedItems_Solution.DeletePackedItems();
     Item item;
     while (heapForItems.GetNumberOfItems() != 0) {
         item = heapForItems.PopItem();
         if (item.itemSize + currentWeightOfItemsInTheKnapsack <= capacityOfKnapsack) {
-            packedItems.AddItemAtTheEnd(item);
+            packedItems_Solution.AddItemAtTheEnd(item);
             currentWeightOfItemsInTheKnapsack += item.itemSize;
         }
     }
@@ -191,7 +191,7 @@ void DiscreteKnapsackProblem::DynamicAlgorithm() {
         throw std::logic_error("Brak przedmiotów do przeprowadzenia algorytmu problemu plecakowego.");
     
     setGreedyAlgorithm = false;
-    packedItems.DeletePackedItems();
+    packedItems_Solution.DeletePackedItems();
     
     int **results = new int *[amountOfItems + 1];
     
@@ -218,7 +218,7 @@ void DiscreteKnapsackProblem::DynamicAlgorithm() {
     while (howManyUnpackagedItemsHaveBeenLeft > 0 && howMuchCapacityHasBeenLeft > 0) {
         if (results[howManyUnpackagedItemsHaveBeenLeft][howMuchCapacityHasBeenLeft] !=
             results[howManyUnpackagedItemsHaveBeenLeft - 1][howMuchCapacityHasBeenLeft]) {
-            packedItems.AddItemAtTheEnd(itemsForTheKnapsack[howManyUnpackagedItemsHaveBeenLeft - 1]);
+            packedItems_Solution.AddItemAtTheEnd(itemsForTheKnapsack[howManyUnpackagedItemsHaveBeenLeft - 1]);
             howMuchCapacityHasBeenLeft =
                     howMuchCapacityHasBeenLeft - itemsForTheKnapsack[howManyUnpackagedItemsHaveBeenLeft - 1].itemSize;
         }
@@ -243,7 +243,7 @@ void DiscreteKnapsackProblem::PrintSolution() {
         } else {
             std::cout << "\e[1mDynamic Algorithm\e[0m" << std::endl << std::endl;
         }
-        packedItems.ShowList();
+        packedItems_Solution.ShowList();
     }
     catch (std::logic_error &e) {
         std::cout << e.what() << std::endl;

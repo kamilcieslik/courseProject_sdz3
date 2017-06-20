@@ -11,13 +11,11 @@ void displayMenu(const std::string &info, const std::string &whatToGenerate,
     std::cout << "1. Wczytaj z pliku." << std::endl;
     std::cout << "2. Wygeneruj " << whatToGenerate << " losowo." << std::endl;
     std::cout << "3. Wyświetl zbiór " << collectionOfWhat << "." << std::endl;
-    if (whatToGenerate=="przedmioty") {
+    if (whatToGenerate == "przedmioty") {
         std::cout << "4. Algorytm - zachłanny, wersja: sortowanie po wartości." << std::endl;
         std::cout << "5. Algorytm - zachłanny, wersja: sortowanie po stosunku wartość/rozmiar." << std::endl;
         std::cout << "6. Algorytm - dynamiczny." << std::endl;
-    }
-    else
-    {
+    } else {
         std::cout << "4. Algorytm - zachłanny." << std::endl;
         std::cout << "5. Algorytm - zupełny." << std::endl;
     }
@@ -67,7 +65,7 @@ void menu_discrete_knapsack_problem() //Obsługa problemu plecakowego.
                 try {
                     k.GreedyAlgorithmSortByValueVersion();
                     k.PrintItemsForTheKnapsack();
-                    std::cout<<std::endl;
+                    std::cout << std::endl;
                     k.PrintSolution();
                 }
                 catch (std::logic_error &e) {
@@ -79,19 +77,19 @@ void menu_discrete_knapsack_problem() //Obsługa problemu plecakowego.
                 try {
                     k.GreedyAlgorithmSortByRatioVersion();
                     k.PrintItemsForTheKnapsack();
-                    std::cout<<std::endl;
+                    std::cout << std::endl;
                     k.PrintSolution();
                 }
                 catch (std::logic_error &e) {
                     std::cout << e.what() << std::endl;
                 }
                 break;
-    
+            
             case 6: //Algorytm 2. - dynamiczny.
                 try {
                     k.DynamicAlgorithm();
                     k.PrintItemsForTheKnapsack();
-                    std::cout<<std::endl;
+                    std::cout << std::endl;
                     k.PrintSolution();
                 }
                 catch (std::logic_error &e) {
@@ -145,11 +143,19 @@ void menu_travelling_salesman_problem() //Obsługa problemu komiwojażera.
                 break;
             
             case 4: //Algorytm 1. - zachłanny.
-               
+                
                 break;
             
             case 5: //Algorytm 2. - zupełny.
-                
+                try {
+                    s.BruteForceAlgorithm();
+                    s.PrintCitiesForTheTravellingSalesman();
+                    std::cout << std::endl;
+                    s.PrintSolution();
+                }
+                catch (std::logic_error &e) {
+                    std::cout << e.what() << std::endl;
+                }
                 break;
             
             default:
