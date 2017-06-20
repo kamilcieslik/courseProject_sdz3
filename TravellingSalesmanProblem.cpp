@@ -105,7 +105,6 @@ void TravellingSalesmanProblem::GenerateRandomCities(int amountOfCities, int max
             }
         }
     }
-    PrintCitiesForTheTravellingSalesman();
 }
 
 void TravellingSalesmanProblem::PrintCitiesForTheTravellingSalesman() {
@@ -140,6 +139,9 @@ void TravellingSalesmanProblem::PrintCitiesForTheTravellingSalesman() {
     }
 }
 
+// -------------------------------------------------------------------
+// Algorytm zachłanny dla problemu komiwojażera.
+// -------------------------------------------------------------------
 void TravellingSalesmanProblem::GreedyAlgorithm() {
     if (arrayOfMatrixOfCities == nullptr)
         throw std::logic_error("Brak miast do przeprowadzenia algorytmu problemu komiwojażera.");
@@ -148,44 +150,44 @@ void TravellingSalesmanProblem::GreedyAlgorithm() {
         delete[] optimalWay_Solution;
     
     setGreedyAlgorithm = true;
-    
     optimalWay_Solution = new int[amountOfCities];
     
-    
-    bool *visited = new bool[amountOfCities];
-    
+    bool *visitedCities = new bool[amountOfCities];
     for (int i = 0; i < amountOfCities; i++) {
-        visited[i] = false;
+        visitedCities[i] = false;
     }
     
-    int p = 0;
-    int poczatkowy = p;
-    int nastepneMiasto = p;
-    visited[poczatkowy] = true;
-    int currentMinLength = INT_MAX;
     length = 0;
+    int currentMinLength;
     
-    optimalWay_Solution[0] = p;
+    int nextCity = 0;
+    int city=nextCity;
+    visitedCities[city] = true;
+    
+    optimalWay_Solution[0] = nextCity;
     
     for (int j = 0; j < amountOfCities - 1; j++) {
-        poczatkowy = nastepneMiasto;
+        city = nextCity;
         currentMinLength = INT_MAX;
         for (int i = 0; i < amountOfCities; i++) {
-            if (arrayOfMatrixOfCities[poczatkowy][i] < currentMinLength && visited[i] == false) {
-                currentMinLength = arrayOfMatrixOfCities[poczatkowy][i];
-                nastepneMiasto = i;
+            if (arrayOfMatrixOfCities[city][i] < currentMinLength && !visitedCities[i]) {
+                currentMinLength = arrayOfMatrixOfCities[city][i];
+                nextCity = i;
             }
         }
-        visited[nastepneMiasto] = true;
-        optimalWay_Solution[j] = nastepneMiasto;
-        length += arrayOfMatrixOfCities[poczatkowy][nastepneMiasto];
+        visitedCities[nextCity] = true;
+        optimalWay_Solution[j] = nextCity;
+        length += arrayOfMatrixOfCities[city][nextCity];
     }
-    optimalWay_Solution[amountOfCities - 1] = p;
-    length += arrayOfMatrixOfCities[optimalWay_Solution[amountOfCities - 2]][p];
+    optimalWay_Solution[amountOfCities - 1] = 0;
+    length += arrayOfMatrixOfCities[optimalWay_Solution[amountOfCities - 2]][0];
     
-    delete[] visited;
+    delete[] visitedCities;
 }
 
+// --------------------------------------------------------------------------------
+// Funkcja rekurencyjna przeszukująca permutacje na potrzeby algorytmu zupełnego.
+// --------------------------------------------------------------------------------
 void TravellingSalesmanProblem::CalculateTheMostOptimalPermutation(int amountOfElements, int *permutations) {
     if (amountOfElements == amountOfCities - 1) {
         int lengthInThisPermutation = 0;
@@ -209,6 +211,9 @@ void TravellingSalesmanProblem::CalculateTheMostOptimalPermutation(int amountOfE
     }
 }
 
+// -------------------------------------------------------------------
+// Algorytm zupełny dla problemu komiwojażera.
+// -------------------------------------------------------------------
 void TravellingSalesmanProblem::BruteForceAlgorithm() {
     if (arrayOfMatrixOfCities == nullptr)
         throw std::logic_error("Brak miast do przeprowadzenia algorytmu problemu komiwojażera.");
@@ -233,13 +238,14 @@ void TravellingSalesmanProblem::BruteForceAlgorithm() {
 
 
 void TravellingSalesmanProblem::PrintSolution() {
-    std::cout << "\e[1mSolution\e[0m" << std::endl << std::endl;
+    std::cout << "\e[1mSolution\e[0m" << std::endl;
     if (setGreedyAlgorithm) {
-        std::cout << "\e[1mGreedy Algorithm\e[0m" << std::endl << std::endl;
+        std::cout << "\e[1mGreedy Algorithm\e[0m" << std::endl;
     } else {
-        std::cout << "\e[1mFull Search Algorithm\e[0m" << std::endl << std::endl;
+        std::cout << "\e[1mFull Search Algorithm\e[0m" << std::endl;
     }
     
+    std::cout << "-------------------" << std::endl;
     std::cout << "Length\t= " << length << std::endl;
     std::cout << "Path\t= ";
     if (setGreedyAlgorithm) {

@@ -109,7 +109,6 @@ void DiscreteKnapsackProblem::GenerateRandomItems(int amountOfItems, int capacit
             sumOfValuesOfAllItems += itemsForTheKnapsack[i].itemValue;
         }
     }
-    PrintItemsForTheKnapsack();
 }
 
 void DiscreteKnapsackProblem::PrintItemsForTheKnapsack() {
@@ -130,6 +129,9 @@ void DiscreteKnapsackProblem::PrintItemsForTheKnapsack() {
     }
 }
 
+// ----------------------------------------------------------------------------------------------------
+// Algorytm zachłanny dla problemu plecakowego, wersja z sortowaniem wg stosunku wartości przedmiotu.
+// ----------------------------------------------------------------------------------------------------
 void DiscreteKnapsackProblem::GreedyAlgorithmSortByValueVersion() {
     if (itemsForTheKnapsack == nullptr)
         throw std::logic_error("Brak przedmiotów do przeprowadzenia algorytmu problemu plecakowego.");
@@ -153,6 +155,9 @@ void DiscreteKnapsackProblem::GreedyAlgorithmSortByValueVersion() {
     }
 }
 
+// -----------------------------------------------------------------------------------------------
+// Algorytm zachłanny dla problemu plecakowego, wersja z sortowaniem wg stosunku wartość/rozmiar.
+// -----------------------------------------------------------------------------------------------
 void DiscreteKnapsackProblem::GreedyAlgorithmSortByRatioVersion() {
     if (itemsForTheKnapsack == nullptr)
         throw std::logic_error("Brak przedmiotów do przeprowadzenia algorytmu problemu plecakowego.");
@@ -176,16 +181,21 @@ void DiscreteKnapsackProblem::GreedyAlgorithmSortByRatioVersion() {
     }
 }
 
-// -------------------------------------------------------------------
-// Definicja funkcji max na potrzeby algorytmu dynamicznego.
-// -------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
+// Definicja funkcji zwracającej większą wartość na potrzeby algorytmu dynamicznego.
+// ----------------------------------------------------------------------------------
 int max(int firstValue, int secondValue) {
+    int max;
     if (firstValue > secondValue)
-        return firstValue;
+        max = firstValue;
     else
-        return secondValue;
+        max =  secondValue;
+    return max;
 }
 
+// -------------------------------------------------------------------
+// Algorytm dynamiczny dla problemu plecakowego.
+// -------------------------------------------------------------------
 void DiscreteKnapsackProblem::DynamicAlgorithm() {
     if (itemsForTheKnapsack == nullptr)
         throw std::logic_error("Brak przedmiotów do przeprowadzenia algorytmu problemu plecakowego.");
@@ -205,8 +215,8 @@ void DiscreteKnapsackProblem::DynamicAlgorithm() {
                 results[itemIt][capIt] = 0;
             } else if (itemsForTheKnapsack[itemIt - 1].itemSize <= capIt) {
                 results[itemIt][capIt] = max(itemsForTheKnapsack[itemIt - 1].itemValue +
-                                       results[itemIt - 1][capIt - itemsForTheKnapsack[itemIt - 1].itemSize],
-                                       results[itemIt - 1][capIt]);
+                                             results[itemIt - 1][capIt - itemsForTheKnapsack[itemIt - 1].itemSize],
+                                             results[itemIt - 1][capIt]);
             } else {
                 results[itemIt][capIt] = results[itemIt - 1][capIt];
             }
@@ -233,7 +243,7 @@ void DiscreteKnapsackProblem::DynamicAlgorithm() {
 
 void DiscreteKnapsackProblem::PrintSolution() {
     try {
-        std::cout << "\e[1mSolution\e[0m" << std::endl << std::endl;
+        std::cout << "\e[1mSolution\e[0m" << std::endl;
         if (setGreedyAlgorithm) {
             
             if (setGreedyAlgorithmSortByValueVersion)

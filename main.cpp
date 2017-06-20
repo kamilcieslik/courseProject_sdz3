@@ -2,6 +2,7 @@
 #include "TimeMeasurement.h"
 #include "DiscreteKnapsackProblem.h"
 #include "TravellingSalesmanProblem.h"
+#include "AlgorithmTest.h"
 
 void displayMenu(const std::string &info, const std::string &whatToGenerate,
                  const std::string &collectionOfWhat) //Menu dla problemu plecakowego i komiwojażera.
@@ -46,6 +47,7 @@ void menu_discrete_knapsack_problem() //Obsługa problemu plecakowego.
             case 2: //Generowanie przedmiotów pseudolosowo.
                 try {
                     k.GenerateRandomItems();
+                    k.PrintItemsForTheKnapsack();
                 }
                 catch (std::invalid_argument &e) {
                     std::cout << e.what() << std::endl;
@@ -127,6 +129,7 @@ void menu_travelling_salesman_problem() //Obsługa problemu komiwojażera.
             case 2: //Generowanie miast pseudolosowo.
                 try {
                     s.GenerateRandomCities();
+                    s.PrintCitiesForTheTravellingSalesman();
                 }
                 catch (std::invalid_argument &e) {
                     std::cout << e.what() << std::endl;
@@ -173,6 +176,54 @@ void menu_travelling_salesman_problem() //Obsługa problemu komiwojażera.
     } while (option != 0);
 }
 
+void menu_tests() //Obsługa testów czasowych.
+{
+    AlgorithmTest test;
+    int option;
+    int numberOfRepetitions;
+    int maxDistanceBetweenCity;
+    do {
+        std::cout << std::endl;
+        std::cout << "*** Testy czasowe ***" << std::endl;
+        std::cout << "1. Testy czasowe dla algorytmów problemu plecakowego." << std::endl;
+        std::cout << "2. Testy czasowe dla algorytmu zachłannego problemu komiwojażera." << std::endl;
+        std::cout << "3. Testy czasowe dla algorytmu zupełnego problemu komiwojażera." << std::endl;
+        std::cout << "Podaj opcje: ";
+        std::cin >> option;
+        std::cout << std::endl;
+        switch (option) {
+            case 1: //Testy czasowe dla algorytmów problemu plecakowego.
+                int maxValueForItem;
+                std::cout << "Podaj ilość instancji każdego zestawu danych w celu uśrednienia wyniku: ";
+                std::cin >> numberOfRepetitions;
+                std::cout << "Podaj maksymalną wartość przedmiotu: ";
+                std::cin >> maxValueForItem;
+                test.DiscreteKnapsackProblem_Test(numberOfRepetitions, maxValueForItem);
+                break;
+            
+            case 2: //Testy czasowe dla algorytmu zachłannego problemu komiwojażera.
+                std::cout << "Podaj ilość instancji każdego zestawu danych w celu uśrednienia wyniku: ";
+                std::cin >> numberOfRepetitions;
+                std::cout << "Podaj maksymalną wartość odległości pomiędzy miastami: ";
+                std::cin >> maxDistanceBetweenCity;
+                test.TravellingSalesmanProblem_Test_Greedy(numberOfRepetitions, maxDistanceBetweenCity);
+                break;
+            
+            case 3: //Testy czasowe dla algorytmu zupełnego problemu komiwojażera.
+                std::cout << "Podaj ilość instancji każdego zestawu danych w celu uśrednienia wyniku: ";
+                std::cin >> numberOfRepetitions;
+                std::cout << "Podaj maksymalną wartość odległości pomiędzy miastami: ";
+                std::cin >> maxDistanceBetweenCity;
+                test.TravellingSalesmanProblem_Test_BruteForce(numberOfRepetitions, maxDistanceBetweenCity);
+                break;
+            
+            default:
+                break;
+        }
+        
+    } while (option != 0);
+}
+
 int main() {
     int option;
     do {
@@ -194,8 +245,9 @@ int main() {
                 menu_travelling_salesman_problem();
                 break;
             case 3:
-                
+                menu_tests();
                 break;
+            default:break;
         }
         
     } while (option != 0);

@@ -39,7 +39,7 @@ void Heap::PushItem(Item newItem) {
     int i, j;
     i = numberOfItems++;
     j = (i - 1) / 2;
-    if (setSortByValue == true) {
+    if (setSortByValue) {
         while (i && arrayOfItems[j].itemValue < newItem.itemValue) {
             arrayOfItems[i] = arrayOfItems[j];
             i = j;
@@ -68,7 +68,7 @@ Item Heap::PopItem() {
     i = 0;
     j = 1;
     
-    if (setSortByValue == true) {
+    if (setSortByValue) {
         while (j < numberOfItems) {
             if ((j + 1 < numberOfItems) && (arrayOfItems[j + 1].itemValue > arrayOfItems[j].itemValue))
                 j++;
@@ -100,7 +100,7 @@ int Heap::GetNumberOfItems() {
 
 
 // -------------------------------------------------------------------
-// Struktura przechowująca rozwiązania problemu plecakowego.
+// Lista przechowująca rozwiązania problemu plecakowego.
 // -------------------------------------------------------------------
 ListOfPackedItems::ListOfPackedItems() : numberOfPackedItems(0) {
     head = nullptr;
@@ -162,6 +162,3 @@ void ListOfPackedItems::ShowList() {
     delete packedItem;
     printf("\n");
 }
-
-
-
