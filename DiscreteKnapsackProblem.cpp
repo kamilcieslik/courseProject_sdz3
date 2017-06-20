@@ -249,6 +249,3 @@ void DiscreteKnapsackProblem::PrintSolution() {
         std::cout << e.what() << std::endl;
     }
 }
-
-
-

@@ -143,7 +143,15 @@ void menu_travelling_salesman_problem() //Obsługa problemu komiwojażera.
                 break;
             
             case 4: //Algorytm 1. - zachłanny.
-                
+                try {
+                    s.GreedyAlgorithm();
+                    s.PrintCitiesForTheTravellingSalesman();
+                    std::cout << std::endl;
+                    s.PrintSolution();
+                }
+                catch (std::logic_error &e) {
+                    std::cout << e.what() << std::endl;
+                }
                 break;
             
             case 5: //Algorytm 2. - zupełny.

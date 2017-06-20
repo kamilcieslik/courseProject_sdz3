@@ -12,7 +12,7 @@ private:
     int amountOfCities;
     int **arrayOfMatrixOfCities;
     int *optimalWay_Solution;
-    int currentMinLength;
+    int length;
     bool setGreedyAlgorithm;
 public:
     TravellingSalesmanProblem();
