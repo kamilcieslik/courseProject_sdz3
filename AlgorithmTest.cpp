@@ -42,7 +42,7 @@ void AlgorithmTest::DiscreteKnapsackProblem_Test(int numberOfRepetitions, int ma
             for (auto j = 0; j < numberOfRepetitions; j++) {
                 ks.GenerateRandomItems(amountOfItems, knapsackCapacity, maxValueForItem);
                 t.TimeStart();
-                ks.GreedyAlgorithmSortByRatioVersion();
+                ks.GreedyAlgorithm(false);
                 t.TimeStop();
                 sum += t.GetTimeInSeconds();
             }

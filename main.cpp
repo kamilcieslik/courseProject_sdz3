@@ -65,7 +65,7 @@ void menu_discrete_knapsack_problem() //Obsługa problemu plecakowego.
             
             case 4: //Algorytm 1. - zachłanny: wersja z sortowaniem po wartości.
                 try {
-                    k.GreedyAlgorithmSortByValueVersion();
+                    k.GreedyAlgorithm(true);
                     k.PrintItemsForTheKnapsack();
                     std::cout << std::endl;
                     k.PrintSolution();
@@ -77,7 +77,7 @@ void menu_discrete_knapsack_problem() //Obsługa problemu plecakowego.
             
             case 5: //Algorytm 1. - zachłanny: wersja z sortowaniem po stosunku wartość/rozmiar.
                 try {
-                    k.GreedyAlgorithmSortByRatioVersion();
+                    k.GreedyAlgorithm(false);
                     k.PrintItemsForTheKnapsack();
                     std::cout << std::endl;
                     k.PrintSolution();

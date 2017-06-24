@@ -31,9 +31,7 @@ public:
     
     void PrintItemsForTheKnapsack();
     
-    void GreedyAlgorithmSortByValueVersion();
-    
-    void GreedyAlgorithmSortByRatioVersion();
+    void GreedyAlgorithm(bool _setGreedyAlgorithmSortByValueVersion);
     
     void DynamicAlgorithm();
     

@@ -17,7 +17,6 @@ struct Item {
     Item();
     
     Item(int _itemSize, int _itemValue, int _itemId, float _itemRatio);
-    
 };
 
 struct ListOfPackedItems {

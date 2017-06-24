@@ -12,27 +12,28 @@ private:
     int amountOfCities;
     int **arrayOfMatrixOfCities;
     int *optimalWay_Solution;
+    int *allPossiblePermutations;
     int length;
     bool setGreedyAlgorithm;
 public:
     TravellingSalesmanProblem();
-    
+
     ~TravellingSalesmanProblem();
-    
+
     void DeleteTravellingSalesman();
-    
+
     void ReadCitiesFromFile(std::string path);
-    
+
     void GenerateRandomCities(int amountOfCities = 0, int maxDistanceBetweenCity = 99);
-    
+
     void PrintCitiesForTheTravellingSalesman();
-    
+
     void GreedyAlgorithm();
-    
-    void CalculateTheMostOptimalPermutation(int amountOfElements, int *permutations);
-    
+
+    void CalculateTheMostOptimalPermutation(int recursive_param);
+
     void BruteForceAlgorithm();
-    
+
     void PrintSolution();
 };
 
